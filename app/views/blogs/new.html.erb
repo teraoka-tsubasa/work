@@ -1,0 +1,46 @@
+<h1>Books</h1>
+
+ <table border="0">
+
+
+ 	<tr>
+ 		<th>タイトル</th><th>Body</th>
+ 	</tr>
+<tr>
+ <% @blogs.each do |blog| %>
+    <td><%=blog.title %></td>
+    <td><%=blog.body %></td>
+    <td><%=link_to "edit",edit_blog_path(blog.id)%></td>
+    <td><%=link_to "show",blog_path(blog.id)%></td>
+    <td><%=link_to "destroy",destroy_blog_path(blog.id),
+    method: :delete, "date-confirm" => "本当に削除しますか？" %></td>
+ </tr>
+
+<% end %>
+</table>
+
+<h1>New Book</h1>
+<% if @blog.errors.any? %>
+  <div id="error_explanation" class="alert alert-danger">
+    <ul>
+      <% @blog.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<!-- form_for部分 -->
+<%= form_for(@blog) do |f| %>
+
+    <h4>Title</h4>
+    <%= f.text_field :title %>
+
+    <h4>Body</h4>
+    <%= f.text_area :body %>
+
+    <%= f.submit 'Create Book' %>
+
+
+
+<% end %>
